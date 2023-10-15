@@ -43,11 +43,10 @@ public:
 		void setLevelReference(FString& Reference);
 
 
-	UPROPERTY(BlueprintReadOnly)
 	TSharedPtr<FOnlineSessionSearch> SessionSearch;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EOS Variables")
-		FString OpenLevelText = FString("/Game/Levels/TestLevel?listen");
+		FString OpenLevelText = FString("/Game/FirstPerson/Maps/FirstPersonMap?listen");
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EOS Variables")
 		TSoftObjectPtr<UWorld> LevelToOpen;

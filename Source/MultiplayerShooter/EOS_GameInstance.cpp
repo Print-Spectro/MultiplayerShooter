@@ -12,7 +12,9 @@
 //#include "MyUtility.h"
 
 //ServerBrowser to populate
-//#include "MenuWidgets/MyBrowserWidget.h"
+#include "MyServerBrowser.h"
+
+#include "MyMenuPlayerController.h"
 
 void UEOS_GameInstance::StartGameInstance()
 {
@@ -181,6 +183,17 @@ void UEOS_GameInstance::joinSession(int32 Index)
 void UEOS_GameInstance::onFindSessionCompleted(bool bWasSuccess)
 {
 	if (bWasSuccess) {
+		AMyMenuPlayerController* PlayerController = Cast<AMyMenuPlayerController>(GetWorld()->GetFirstPlayerController());
+		if (PlayerController == nullptr) {
+			return;
+			UE_LOG(LogTemp, Error, TEXT("UEOS_GameInstance::onFindSessionCompleted: No PlayerController"));
+		}
+		if (PlayerController->BrowserInst == nullptr) {
+			return;
+			UE_LOG(LogTemp, Error, TEXT("UEOS_GameInstance::onFindSessionCompleted: No BrowserInst"));
+		}
+		PlayerController->BrowserInst->populateScrollBox(SessionSearch->SearchResults);
+
 		//UMyBrowserWidget* ServerBrowser = UMyUtility::GetBrowserWidget(this);
 		//ServerBrowser->populateScrollBox(SessionSearch->SearchResults);
 	}
